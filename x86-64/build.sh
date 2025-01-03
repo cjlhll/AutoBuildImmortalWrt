@@ -23,6 +23,7 @@ PACKAGES="$PACKAGES luci-i18n-opkg-zh-cn"
 PACKAGES="$PACKAGES luci-i18n-homeproxy-zh-cn"
 PACKAGES="$PACKAGES openssh-sftp-server"
 PACKAGES="$PACKAGES luci-app-wol"
+PACKAGES="$PACKAGES luci-app-alist"
 
 # 判断是否需要编译 Docker 插件
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
