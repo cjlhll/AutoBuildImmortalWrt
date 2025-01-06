@@ -25,20 +25,6 @@ PACKAGES="$PACKAGES luci-i18n-alist-zh-cn"
 PACKAGES="$PACKAGES luci-i18n-wol-zh-cn"
 PACKAGES="$PACKAGES openssh-sftp-server"
 
-# 检查并安装自定义 IPK 包
-if [ -d "/home/build/immortalwrt/packages" ]; then
-  echo "Adding custom IPK packages from /home/build/immortalwrt/packages"
-  for ipk in /home/build/immortalwrt/packages/*.ipk; do
-    if [ -f "$ipk" ]; then
-      echo "Installing custom IPK package: $ipk"
-      opkg install "$ipk"
-    fi
-  done
-else
-  echo "No custom IPK packages found."
-fi
-
-
 # 判断是否需要编译 Docker 插件
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
     PACKAGES="$PACKAGES luci-i18n-dockerman-zh-cn"
