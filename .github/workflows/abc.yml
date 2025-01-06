@@ -31,7 +31,7 @@ jobs:
     # 5. 解压文件到 abc 目录
     - name: Extract tarball to abc directory
       run: |
-        tar -xvzf mihomo_x86_64-openwrt-23.05.tar.gz -C ./abc
+        tar -xvf mihomo_x86_64-openwrt-23.05.tar.gz -C ./abc
 
     # 6. 提交并推送更改（如果有）
     - name: Commit and push changes
