@@ -26,18 +26,18 @@ jobs:
     # 4. 创建 packages 文件夹（如果不存在的话）
     - name: Create packages directory
       run: |
-        mkdir -p ./packages
+        mkdir -p ./packages/base
 
     # 5. 解压文件到 packages 目录
     - name: Extract tarball to packages directory
       run: |
-        tar -zxvf mihomo_x86_64-openwrt-23.05.tar.gz -C ./packages
+        tar -zxvf mihomo_x86_64-openwrt-23.05.tar.gz -C ./packages/base
 
     # 6. 提交并推送更改（如果有）
     - name: Commit and push changes
       run: |
         git config --local user.name "GitHub Actions Bot"
         git config --local user.email "actions@github.com"
-        git add ./packages
+        git add ./packages/base
         git commit -m "Add extracted files to packages directory" || echo "No changes to commit"
         git push
