@@ -1,4 +1,4 @@
-name: Download and Extract mihomo_x86_64-openwrt-23.05.tar.gz
+name: Download and Extract mihomo tarball
 
 on:
   workflow_dispatch:  # 允许手动触发
@@ -18,22 +18,35 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y curl tar
 
-    # 3. 下载文件
+    # 3. 获取架构和版本信息
+    - name: Get architecture and branch
+      run: |
+        arch="x86_64"  # 这里手动指定架构，如果需要动态获取，可以调整脚本
+        branch="openwrt-23.05"  # 同样，手动指定版本，如果需要动态获取，也可以调整
+        echo "arch=$arch" >> $GITHUB_ENV
+        echo "branch=$branch" >> $GITHUB_ENV
+
+    # 4. 下载 tarball 文件
     - name: Download tarball
       run: |
-        curl -L -o mihomo_x86_64-openwrt-23.05.tar.gz https://github.com/morytyann/OpenWrt-mihomo/releases/download/latest/mihomo_x86_64-openwrt-23.05.tar.gz
+        echo "download tarball"
+        tarball="mihomo_${{ env.arch }}-${{ env.branch }}.tar.gz"
+        curl -s -L -o "$tarball" "https://github.com/morytyann/OpenWrt-mihomo/releases/latest/download/$tarball"
 
-    # 4. 创建 abc 文件夹（如果不存在的话）
-    - name: Create abc directory
+    # 5. 解压 tarball 文件
+    - name: Extract tarball
+      run: |
+        echo "extract tarball"
+        tar -x -z -f "$tarball"
+        rm -f "$tarball"
+
+    # 6. 创建 abc 文件夹并移动文件
+    - name: Move extracted files to abc folder
       run: |
         mkdir -p ./abc
+        mv mihomo_* ./abc/
 
-    # 5. 解压文件到 abc 目录
-    - name: Extract tarball to abc directory
-      run: |
-        tar -xvf mihomo_x86_64-openwrt-23.05.tar.gz -C ./abc
-
-    # 6. 提交并推送更改（如果有）
+    # 7. 提交并推送更改（如果有）
     - name: Commit and push changes
       run: |
         git config --local user.name "GitHub Actions Bot"
