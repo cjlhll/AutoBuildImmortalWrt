@@ -21,7 +21,7 @@ jobs:
     # 3. 下载文件
     - name: Download tarball
       run: |
-        curl -L -o mihomo_x86_64-openwrt-23.05.tar.gz https://github.com/morytyann/OpenWrt-mihomo/releases/download/latest/mihomo_x86_64-openwrt-23.05.tar.gz
+        curl -L -o mihomo_x86_64-openwrt-23.05.tar.gz https://github.com/morytyann/OpenWrt-mihomo/releases/download/v1.17.2/mihomo_x86_64-openwrt-23.05.tar.gz
 
     # 4. 创建 abc 文件夹（如果不存在的话）
     - name: Create abc directory
@@ -31,7 +31,7 @@ jobs:
     # 5. 解压文件到 abc 目录
     - name: Extract tarball to abc directory
       run: |
-        tar -xzf mihomo_x86_64-openwrt-23.05.tar.gz -C ./abc
+        tar -zxvf mihomo_x86_64-openwrt-23.05.tar.gz -C ./abc
 
     # 6. 提交并推送更改（如果有）
     - name: Commit and push changes
