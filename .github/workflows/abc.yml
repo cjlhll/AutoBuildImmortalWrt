@@ -1,10 +1,10 @@
-name: Run Remote Shell Script Manually
+name: Download and Extract mihomo_x86_64-openwrt-23.05.tar.gz
 
 on:
   workflow_dispatch:  # 允许手动触发
 
 jobs:
-  run-remote-script:
+  download-and-extract:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,24 +18,26 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y curl tar
 
-    # 3. 下载并运行远程脚本
-    - name: Download and run install.sh
+    # 3. 下载文件
+    - name: Download tarball
       run: |
-        curl -s -O https://raw.githubusercontent.com/morytyann/OpenWrt-mihomo/refs/heads/main/install.sh
-        chmod +x ./install.sh  # 添加可执行权限
-        ./install.sh
+        curl -L -o mihomo_x86_64-openwrt-23.05.tar.gz https://github.com/morytyann/OpenWrt-mihomo/releases/download/latest/mihomo_x86_64-openwrt-23.05.tar.gz
 
-    # 4. 将解压的文件放入 abc 文件夹
-    - name: Move extracted files to abc directory
+    # 4. 创建 abc 文件夹（如果不存在的话）
+    - name: Create abc directory
       run: |
-        mkdir -p ./abc  # 确保目标目录存在
-        mv ./mihomo_* ./abc/  # 假设解压后的文件前缀为 mihomo_
+        mkdir -p ./abc
 
-    # 5. 提交并推送更改
+    # 5. 解压文件到 abc 目录
+    - name: Extract tarball to abc directory
+      run: |
+        tar -xvzf mihomo_x86_64-openwrt-23.05.tar.gz -C ./abc
+
+    # 6. 提交并推送更改（如果有）
     - name: Commit and push changes
       run: |
         git config --local user.name "GitHub Actions Bot"
         git config --local user.email "actions@github.com"
         git add ./abc
-        git commit -m "Add MihomoTProxy files to abc directory" || echo "No changes to commit"
+        git commit -m "Add extracted files to abc directory" || echo "No changes to commit"
         git push
