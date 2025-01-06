@@ -1,9 +1,7 @@
-name: Run Remote Shell Script
+name: Run Remote Shell Script Manually
 
 on:
-  push:
-    branches:
-      - main  # 仅在 main 分支的 push 事件触发
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   run-remote-script:
@@ -32,3 +30,12 @@ jobs:
       run: |
         mkdir -p ./abc  # 确保目标目录存在
         mv ./mihomo_* ./abc/  # 假设解压后的文件前缀为 mihomo_
+
+    # 5. 提交并推送更改
+    - name: Commit and push changes
+      run: |
+        git config --local user.name "GitHub Actions Bot"
+        git config --local user.email "actions@github.com"
+        git add ./abc
+        git commit -m "Add MihomoTProxy files to abc directory" || echo "No changes to commit"
+        git push
