@@ -5,7 +5,7 @@ on:
       openwrt_kernel:
         description: "选择构建的内核(斐讯N1)"
         required: false
-        default: "6.6.93"
+        default: "6.6.104"
         type: choice
         options:
           - 5.4.291
@@ -59,6 +59,7 @@ on:
           - 6.6.95
           - 6.6.97
           - 6.6.99
+          - 6.6.104
           - 6.12.16
           - 6.12.17
           - 6.12.18
@@ -94,7 +95,7 @@ on:
         description: "集成 store 商店"
         required: false
         type: boolean
-        default: true
+        default: false
       skip_imagebuilder:
         description: "直接使用底包快速构建固件, 忽略自定义插件 ----（跳过 ImageBuilder）"
         required: false
@@ -115,7 +116,7 @@ on:
       builder_name:
         description: "设置打包作者的名称"
         required: true
-        default: 'wukongdaily'
+        default: 'cjlhll'
 
 jobs:
   build:
