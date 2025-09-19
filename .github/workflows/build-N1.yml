@@ -212,6 +212,17 @@ jobs:
           KERNEL_VERSION=$(echo "$FILENAME" | grep -oP 'k\d+\.\d+\.\d+')
           mv "$FILE" "${{ env.PACKAGED_OUTPUTPATH }}/immortalwrt-24.10.2-phicomm-n1-btrfs-$KERNEL_VERSION.img.gz"
 
+      - name: Upload firmware to GitHub Releases
+        uses: softprops/action-gh-release@v2.2.1
+        with:
+          tag_name: phicomm-n1
+          name: ImmortalWrt for Phicomm N1
+          body_path: ${{ github.workspace }}/n1/info.md
+          files: |
+            ${{ env.PACKAGED_OUTPUTPATH }}/*.img.gz
+            ${{ steps.find_rootfs.outputs.file }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload firmware to GitHub Releases
         uses: softprops/action-gh-release@v2.2.1
