@@ -20,7 +20,8 @@ PACKAGES="$PACKAGES luci-theme-argon"
 PACKAGES="$PACKAGES luci-app-argon-config"
 PACKAGES="$PACKAGES luci-i18n-argon-config-zh-cn"
 PACKAGES="$PACKAGES luci-app-openclash"
-PACKAGES="$PACKAGES luci-app-openlist"
+PACKAGES="$PACKAGES luci-i18n-openlist-zh-cn"
+PACKAGES="$PACKAGES luci-i18n-wol-zh-cn"
 PACKAGES="$PACKAGES openssh-sftp-server"
 # 判断是否需要编译 Docker 插件
 if [ "$INCLUDE_DOCKER" = "yes" ]; then
