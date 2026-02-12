@@ -16,7 +16,7 @@ on:
       openwrt_kernel:
         description: "选择构建的内核(斐讯N1)"
         required: false
-        default: "6.6.122"
+        default: "6.6.120"
         type: choice
         options:
           - 5.4.291
